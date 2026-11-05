@@ -1,0 +1,31 @@
+{
+  "name": "クメール語 ロールプレイング教材",
+  "short_name": "ロールプレイング",
+  "description": "カンボジアの実際の場面で使うクメール語の会話教材",
+  "start_url": "/khmer-roleplay/",
+  "scope": "/khmer-roleplay/",
+  "display": "standalone",
+  "lang": "ja",
+  "background_color": "#F3F1E9",
+  "theme_color": "#F3F1E9",
+  "icons": [
+    {
+      "src": "/khmer-roleplay/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/khmer-roleplay/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/khmer-roleplay/icons/icon-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

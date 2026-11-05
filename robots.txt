@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://matsui-khmer.github.io/khmer-roleplay/sitemap.xml
