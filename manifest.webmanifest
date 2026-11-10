@@ -6,8 +6,8 @@
   "scope": "/khmer-roleplay/",
   "display": "standalone",
   "lang": "ja",
-  "background_color": "#F3F1E9",
-  "theme_color": "#F3F1E9",
+  "background_color": "#DEE0E5",
+  "theme_color": "#14274C",
   "icons": [
     {
       "src": "/khmer-roleplay/icons/icon-192.png",

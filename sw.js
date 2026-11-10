@@ -2,7 +2,7 @@
    ★ ページとCSSとJSは先に取っておく。**PDFは取らない**
      （9本で2MBを超える。押したときに通信すればよい）。
    ★ 版が変わったら古い棚を捨てる（v1_0_20261105）。 */
-var 棚 = "khmer-roleplay-v1_0-20261105";
+var 棚 = "khmer-roleplay-v1_0-20261105-d20261110";
 var さき = ["/khmer-roleplay/", "/khmer-roleplay/assets/style.css", "/khmer-roleplay/assets/app.js", "/khmer-roleplay/assets/index.js", "/khmer-roleplay/01/", "/khmer-roleplay/02/", "/khmer-roleplay/03/", "/khmer-roleplay/04/", "/khmer-roleplay/05/", "/khmer-roleplay/06/", "/khmer-roleplay/07/", "/khmer-roleplay/08/", "/khmer-roleplay/09/"];
 self.addEventListener("install", function (e) {
   e.waitUntil(caches.open(棚).then(function (c) {
