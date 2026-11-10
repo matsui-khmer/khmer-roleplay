@@ -47,64 +47,11 @@
   --on-line: #FFFFFF;
   --shadow: 0 1px 4px rgba(0, 0, 0, .14);
   --maxw: 56rem;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --paper: #0F141D;
-    --sheet: #171E2A;
-    --head: #141B26;
-    --find: #1A2333;
-    --chip: #222C3C;
-    --ink: #E5E8EE;
-    --ink-soft: #B0B8C5;
-    --ink-faint: #9AA3B1;
-    --yomi: #9DC0F5;
-    --rule: #283244;
-    --rule-hard: #39455A;
-    --main: #9DB8E8;
-    --main-ink: #B7CBF0;
-    --main-soft: #1C2A40;
-    --main-line: #34507A;
-    --on-main: #0F1726;
-    --band: #24365A;
-    --on-band: #E5E8EE;
-    --mark: #5C5418;
-    --line: #36C26A;
-    --line-edge: #2FAF5E;
-    --line-soft: #14261C;
-    --on-line: #06200F;
-    --shadow: 0 1px 4px rgba(0, 0, 0, .5);
-    color-scheme: dark;
-  }
-}
-
-:root[data-theme="dark"] {
-  --paper: #0F141D;
-  --sheet: #171E2A;
-  --head: #141B26;
-  --find: #1A2333;
-  --chip: #222C3C;
-  --ink: #E5E8EE;
-  --ink-soft: #B0B8C5;
-  --ink-faint: #9AA3B1;
-  --yomi: #9DC0F5;
-  --rule: #283244;
-  --rule-hard: #39455A;
-  --main: #9DB8E8;
-  --main-ink: #B7CBF0;
-  --main-soft: #1C2A40;
-  --main-line: #34507A;
-  --on-main: #0F1726;
-  --band: #24365A;
-  --on-band: #E5E8EE;
-  --mark: #5C5418;
-  --line: #36C26A;
-  --line-edge: #2FAF5E;
-  --line-soft: #14261C;
-  --on-line: #06200F;
-  --shadow: 0 1px 4px rgba(0, 0, 0, .5);
-  color-scheme: dark;
+  /* ★★ 2026-11-10 夜、暗い画面の配色をやめた。松井さん「背景が全体的に暗くて見本で見せてもらったものと
+     全然クオリティが異なります。ダークモードでも見本と同じ色にして良いので、とにかく見本と全く同じデザインに」。
+     端末が暗い表示でも、この明るい配色だけで出す（ブラウザの自動の暗転も断る＝only light）。
+     **暗い画面の塊を戻さないこと**（点検する.py ■15 が見ている） */
+  color-scheme: only light;
 }
 
 * { box-sizing: border-box }
@@ -168,7 +115,7 @@ main.wrap {
 }
 .band b { font-weight: 700; white-space: nowrap }
 .band a { color: var(--on-band); margin-inline-start: auto; white-space: nowrap }
-/* ★ 明るい画面では --main と --band が同じ紺なので、ふつうの枠だと帯に溶ける（レビューF2） */
+/* ★ --main と --band が同じ紺なので、ふつうの枠だと帯に溶ける（レビューF2） */
 .band a:focus-visible { outline-color: var(--on-band) }
 
 /* ── 上の白い帯（サイト名。案1改） ──────────────────── */
@@ -426,29 +373,43 @@ h2.display {
 }
 .log time { color: var(--ink-soft); font-size: 13px; font-variant-numeric: tabular-nums }
 
-/* ── サービス案内（案37 → 案1改で印つき） ─────────────── */
+/* ── サービス案内（案37 → 2026-11-10 夜、絵つきのカードに） ───────
+   松井さん「他が開いてみたいと思わないデザインなので、つい押したくなるようなデザインにしてください」
+   → カード全体が1つのリンク。上に絵、下に紺の大きなボタン。乗せると浮いて絵が寄る。
+   公式LINEは、一覧では先頭に横長の大きいカード（教材ページの小さい版ではふつうの大きさ）。 */
 .svc {
   list-style: none;
   padding: 0;
   margin: 0;
   display: grid;
-  gap: 14px;
+  gap: 16px;
   grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
 }
-.svc li {
-  background: var(--sheet);
-  border: 1px solid var(--rule-hard);
-  border-radius: 6px;
-  padding: 14px 16px 16px;
+.svc li { display: flex; min-width: 0 }
+.sv {
   display: flex;
   flex-direction: column;
-  gap: .45em;
+  width: 100%;
   min-width: 0;
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: var(--shadow);
+  transition: transform .2s, box-shadow .2s;
 }
-.svc .top { display: flex; align-items: center; gap: 10px }
-.svc .ic {
-  width: 40px;
-  height: 40px;
+.sv:hover { transform: translateY(-3px); box-shadow: 0 10px 22px -10px rgba(20, 39, 76, .45); color: inherit }
+.sv:focus-visible { outline: 2px solid var(--main); outline-offset: 3px }
+.sv .pic { display: block; aspect-ratio: 16 / 9; max-width: 100%; overflow: hidden; background: var(--chip) }
+.sv .pic img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .35s }
+.sv:hover .pic img { transform: scale(1.05) }
+.sb { display: flex; flex-direction: column; gap: .45em; padding: 12px 16px 16px; flex: 1; min-width: 0 }
+.sv .top { display: flex; align-items: center; gap: 8px }
+.sv .ic {
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   background: var(--main);
   color: var(--on-main);
@@ -456,35 +417,50 @@ h2.display {
   place-items: center;
   flex: none;
 }
-.svc .ic svg { width: 22px; height: 22px; display: block }
-.svc .who {
+.sv .ic svg { width: 18px; height: 18px; display: block }
+.sv .who {
   font-family: "Jost", "Noto Sans JP", sans-serif;
   font-size: 12px;
   font-weight: 600;
   letter-spacing: .06em;
   color: var(--ink-soft);
-  margin: 0;
 }
-.svc h3 { font-size: 15.5px; line-height: 1.45; margin: 0; color: var(--main-ink) }
-.svc p { margin: 0; font-size: 13.5px; color: var(--ink-soft) }
-.svc .go { margin-top: auto; padding-top: .4em }
-.svc .go a {
-  display: inline-block;
-  font-size: 13.5px;
+.svc h3 { font-size: 16px; line-height: 1.45; margin: 0; color: var(--main-ink) }
+.sv .tx { font-size: 13.5px; line-height: 1.7; color: var(--ink-soft) }
+.sv .go {
+  margin-top: auto;
+  display: block;
+  text-align: center;
+  font-size: 14px;
   font-weight: 700;
-  text-decoration: none;
-  padding: .4em 1em;
-  border-radius: 4px;
-  border: 1.5px solid var(--main);
-  color: var(--main-ink);
+  padding: .65em 1em;
+  border-radius: 6px;
+  background: var(--main);
+  color: var(--on-main);
+  box-shadow: 0 2px 0 #0B1730;
 }
-.svc .go a:hover { background: var(--main-soft) }
+.sb .go { margin-top: auto }
+.sv:hover .go { filter: brightness(1.25) }
 /* 公式LINE だけ緑で目立たせる（レッスンの相談の入口）。
-   ★ ボタンの地は #048A3C。LINE の緑 #06C755 に白い字だと 2.2:1 しかない */
-.svc li.line { border: 2px solid var(--line-edge); background: var(--line-soft) }
+   ★ ボタンの地は #037A35。LINE の緑 #06C755 に白い字だと 2.2:1 しかない */
+.svc li.line .sv { border: 2px solid var(--line-edge); background: var(--line-soft) }
 .svc li.line .ic { background: var(--line); color: var(--on-line) }
-.svc li.line .go a { background: var(--line); border-color: var(--line); color: var(--on-line) }
-.svc li.line .go a:hover { filter: brightness(1.08) }
+.svc li.line .go { background: var(--line); color: var(--on-line); box-shadow: 0 3px 0 #02582A; font-size: 15px }
+/* ★ 乗せたときは明るくしない（明るくすると白い字が 4.5:1 を割る。2026-11-10 夜のレビュー指摘7）。濃くする */
+.svc li.line .sv:hover .go { filter: none; background: #02692D }
+/* 一覧では先頭に横長（作る.py が先頭に並べて出す。order で前に出すとキーボードの順とずれる） */
+.svc:not(.small) li.line { grid-column: 1 / -1 }
+@media (min-width: 48rem) {
+  .svc:not(.small) li.line .sv { flex-direction: row; align-items: stretch }
+  .svc:not(.small) li.line .pic { width: 46%; flex: none }
+  .svc:not(.small) li.line .sb { justify-content: center; padding: 22px 26px; gap: .6em }
+  .svc:not(.small) li.line h3 { font-size: 21px }
+  .svc:not(.small) li.line .tx { font-size: 14.5px }
+  .svc:not(.small) li.line .go { margin-top: .6em; align-self: flex-start; padding: .75em 2em; font-size: 16px }
+}
+/* 教材ページの小さい版（2枚）は2列に固定（auto-fill だと広い画面で3列目が空く。見本も2列） */
+.svc.small { grid-template-columns: repeat(2, minmax(0, 1fr)) }
+@media (max-width: 30rem) { .svc.small { grid-template-columns: 1fr } }
 
 /* ── 教材ページ ───────────────────────────── */
 .hero {
@@ -840,6 +816,6 @@ footer.foot p { margin: 0 0 .4em }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .thumb img { transition: none }
-  .card > a:hover .thumb img { transform: none }
+  .thumb img, .sv, .sv .pic img { transition: none }
+  .card > a:hover .thumb img, .sv:hover, .sv:hover .pic img { transform: none }
 }
